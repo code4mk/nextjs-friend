@@ -41,8 +41,11 @@ const FriendHoc = (Component: any = null, options: any = { middleware: [] }) => 
       let pathname: any = Router.pathname
 
       if (pathname === '/login') {
-        let isAuth = 'true'
-        if (isAuth === 'true') {
+        // auth check
+        let auth: any = cookies.get('auth')
+        let token: any = cookies.get('token')
+        // if not fullfill authenticate redirect login page
+        if (auth === 'true' && token !== '' && token !== undefined) {
           Router.push('/')
         }
       }
