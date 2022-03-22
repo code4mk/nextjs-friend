@@ -49,6 +49,6 @@ const Friend: NextPage = (props: any) => {
 
 export default FriendHoc(Friend, {
   middleware: ['auth'],
-  layout: 'base2',
+  layout: 'base',
 })
 

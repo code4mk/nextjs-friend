@@ -1,13 +1,13 @@
 // https://cheatcode.co/tutorials/how-to-handle-authenticated-routes-with-next-js
 import React from 'react'
 import Router from 'next/router'
-import parse from 'html-react-parser'
 import BaseLayout from '@layouts/BaseLayout'
 import BaseLayout2 from '@layouts/BaseLayout2'
+import cookies from './cookies/index'
 
 let LayoutEnum: any =  {
-  base: BaseLayout,
-  base2: BaseLayout2
+  'base': BaseLayout,
+  'base2': BaseLayout2
 }
 
 /**
@@ -16,22 +16,20 @@ let LayoutEnum: any =  {
 type MyState =  {
   isNext: boolean,
   layout: string,
-  hasLayout: boolean,
-  layoutLists: string[],
+  hasLayout: boolean
 }
 
 const FriendHoc = (Component: any = null, options: any = { middleware: [] }) => {
-  class RouteComponent extends React.Component {
+  class FriendComponent extends React.Component {
     state: MyState = {
       isNext: false,
       layout: '',
-      hasLayout: false,
-      layoutLists: ['base', 'base2'],
+      hasLayout: false
     }
 
     componentDidMount() {
       if (options?.layout) {
-        if (this.state.layoutLists?.includes(options?.layout)) {
+        if (Object.keys(LayoutEnum)?.includes(options?.layout)) {
           this.setState({ layout: options?.layout ?? '' })
           this.setState({hasLayout: true})
         } else {
@@ -50,9 +48,13 @@ const FriendHoc = (Component: any = null, options: any = { middleware: [] }) => 
       }
 
       if (options?.middleware?.length && options?.middleware?.includes('auth')) {
-        let isAuth = 'true'
+        
+        // auth check
+        let auth: any = cookies.get('auth')
+        let token: any = cookies.get('token')
+
         // if not fullfill authenticate redirect login page
-        if (isAuth === 'true') {
+        if (auth === 'true' && token !== '' && token !== undefined) {
           this.setState({ isNext: true })
         } else {
           Router.push('/login')
@@ -64,10 +66,12 @@ const FriendHoc = (Component: any = null, options: any = { middleware: [] }) => 
 
     render() {
       const { isNext, layout, hasLayout } = this.state
- 
+      
+      // Return empty div for formality purpose. (failed middleware)
       if (!isNext) {
         return <div />
       }
+
       return (
         <>
           {(() => {
@@ -88,7 +92,7 @@ const FriendHoc = (Component: any = null, options: any = { middleware: [] }) => 
     }
   }
 
-  return RouteComponent
+  return FriendComponent
 }
 
 export default FriendHoc

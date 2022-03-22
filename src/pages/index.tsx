@@ -3,8 +3,16 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import cookies from '@utils/cookies'
 
 const Home: NextPage = () => {
+  const logout: any = () => {
+    cookies.set('auth',false,{ path: '/' })
+    cookies.set('token','',{ path: '/' })
+    cookies.remove('auth',{ path: '/' })
+    cookies.remove('token', { path: '/' })
+    window.location.replace('/login')
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -26,8 +34,12 @@ const Home: NextPage = () => {
         <div className={styles.grid}>
           <div  className={styles.card}>
             <h2>Documentation &rarr;</h2>
-            <Link href="/friend/2">
-              <a href="">Jamal</a>
+            <button onClick={(e:any) => logout()} >logout</button>
+            <Link href="/login">
+              <a href="">Login</a>
+            </Link>
+            <Link href="/friend">
+              <a href="/friend">Friend</a>
             </Link>
             <p>Find in-depth information about Next.js features and API.</p>
           </div>
