@@ -6,6 +6,10 @@ import styles from '../styles/Home.module.css'
 import cookies from '@utils/cookies'
 
 const Home: NextPage = () => {
+
+  /**
+   * logout functionality.
+   */
   const logout: any = () => {
     cookies.set('auth',false,{ path: '/' })
     cookies.set('token','',{ path: '/' })
@@ -13,6 +17,7 @@ const Home: NextPage = () => {
     cookies.remove('token', { path: '/' })
     window.location.replace('/login')
   }
+  
   return (
     <div className={styles.container}>
       <Head>
