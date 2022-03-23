@@ -10,6 +10,17 @@ import FriendHoc from '@utils/nextjs-friend'
 export async function getServerSideProps(context: any) {
   const res: any = await axios.get('https://jsonplaceholder.typicode.com/todos')
   const todos: any = res.data
+  
+  /**
+   * Notfound page return manually dynamic route
+   * @see - https://stackoverflow.com/questions/47586505/next-js-return-the-404-error-page-in-getinitialprops
+   */
+  if (todos?.length < 1) {
+    return {
+      notFound: true
+    }
+  }
+
   return {
     props: {
       todos,
