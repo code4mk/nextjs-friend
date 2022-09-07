@@ -1,13 +1,10 @@
-// https://cheatcode.co/tutorials/how-to-handle-authenticated-routes-with-next-js
 import React from 'react'
 import Router from 'next/router'
-import BaseLayout from '@layouts/BaseLayout'
-import BaseLayout2 from '@layouts/BaseLayout2'
+import Base from '@layouts/Base'
 import cookies from './cookies/index'
 
-let LayoutEnum: any =  {
-  'base': BaseLayout,
-  'base2': BaseLayout2
+let LayoutEnum: any = {
+  'base': Base,
 }
 
 /**
@@ -44,6 +41,7 @@ const FriendHoc = (Component: any = null, options: any = { middleware: [] }) => 
         // auth check
         let auth: any = cookies.get('auth')
         let token: any = cookies.get('token')
+
         // if not fullfill authenticate redirect login page
         if (auth === 'true' && token !== '' && token !== undefined) {
           Router.push('/')

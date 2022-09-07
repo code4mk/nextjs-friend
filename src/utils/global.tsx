@@ -1,5 +1,5 @@
 /**
- * Return .env
+ * Get the enviornment value.
  *
  * @param {string} key - env key
  * @returns {string|object} - string or object
@@ -17,8 +17,9 @@ const getEnv: any = (key: string = ''): string | {} => {
   } else {
     value = env
   }
-
   return value
 }
 
-export { getEnv }
+export {
+  getEnv,
+}

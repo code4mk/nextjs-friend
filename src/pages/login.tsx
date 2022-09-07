@@ -4,9 +4,11 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import cookies from '@utils/cookies'
 import FriendHoc from '@utils/nextjs-friend'
+import styles from '../styles/Login.module.css'
 
 const Login: NextPage = () => {
   const router: any = useRouter()
+
   useEffect(() => {
     console.log(Object.keys(router.components))
   }, [router, router])
@@ -19,11 +21,15 @@ const Login: NextPage = () => {
 
   return (
     <div>
-      <Link href="/">
+      {/* <Link href="/">
         <a href="">Home</a>
-      </Link>
+      </Link> */}
       <div>
-        <button onClick={(e: any) => login()}>Login</button>
+        <button
+          className={`${styles.btn} ${styles.btn_success}`}
+          onClick={(e: any) => login()}>
+          Login
+        </button>
       </div>
     </div>
   )
