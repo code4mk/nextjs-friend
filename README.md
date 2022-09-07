@@ -64,7 +64,11 @@ export default YourPage
 
 # Run project 
 
+* clone the project.
+
 ```bash 
 yarn install 
 yarn dev
+# with ssr
+yarn dev-server
 ```
